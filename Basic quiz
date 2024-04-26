@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #quiz-container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: linear-gradient(45deg, #F5F5DC, #FFFDD0); /* Gradient effect */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            margin-bottom: 20px;
+            display: none;
+            padding: 10px;
+            border: 1px solid #8B4513; /* Brown */
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #8B4513; /* Brown */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #8B4513; /* Brown */
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #8B4513; /* Brown */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #654321; /* Darker Brown */
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .active {
+            display: block;
+        }
+
+        #finish {
+            display: none;
+            text-align: center;
+            color: #8B4513; /* Brown */
+        }
+
+        /* Add space between sections */
+        .section {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #FFFDD0; /* Cream */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Add icon styles */
+        .icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <div class="section">
+        <div class="question active" id="question1">
+            <label>Father of Computer?</label>
+            <input type="text" id="answer1" ans="Charles Babbage">
+            <button onclick="checkAnswer('answer1', 'result1')">Check Answer</button>
+            <div id="result1"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="question" id="question2">
+            <label>HTML Full Form?</label>
+            <input type="text" id="answer2" ans="Hyper Text Markup Language">
+            <button onclick="checkAnswer('answer2', 'result2')">Check Answer</button>
+            <div id="result2"></div>
+        </div>
+    </div>
+    
+    <!-- Add more sections and questions here -->
+
+    <div id="finish">
+        <h2><i class="icon">🎉</i>Congratulations!</h2>
+        <p>Hurray! You have completed the quiz.</p>
+    </div>
+
+    <button onclick="nextQuestion()" id="nextBtn">Next Question</button>
+</div>
+
+<script>
+    var currentQuestion = 1;
+    var totalQuestions = document.querySelectorAll(".question").length;
+
+    function nextQuestion() {
+        var current = document.getElementById("question" + currentQuestion);
+        current.classList.remove("active");
+        currentQuestion++;
+
+        if (currentQuestion <= totalQuestions) {
+            var next = document.getElementById("question" + currentQuestion);
+            next.classList.add("active");
+        } else {
+            document.getElementById("finish").style.display = "block";
+            document.getElementById("nextBtn").style.display = "none";
+            // confetti.start();
+        }
+    }
+
+    function checkAnswer(answerId, resultId) {
+        var answerInput = document.getElementById(answerId);
+        var resultDiv = document.getElementById(resultId);
+        var userAnswer = answerInput.value;
+        var correctAnswer = answerInput.getAttribute("ans");
+
+        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+            resultDiv.textContent = "Correct!";
+            resultDiv.style.color = "green";
+        } else {
+            resultDiv.textContent = "Incorrect. Correct answer: " + correctAnswer;
+            resultDiv.style.color = "red";
+        }
+    }
+</script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@0.3.2/confetti.min.js"></script> -->
+</body>
+</html>
