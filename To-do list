@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+    /* CSS for styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        padding: 20px 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"] {
+        width: 70%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    li:hover {
+        background-color: #f9f9f9;
+    }
+
+    .completed {
+        text-decoration: line-through;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick=" addingtasks()">Add Task</button>
+    <ul id="taskList">
+        <!-- Sample tasks for demonstration -->
+        <li onclick=" taskdone(this)">Task 1</li>
+        <li onclick=" taskdone(this)">Task 2</li>
+    </ul>
+</div>
+
+<script>
+    // JavaScript 
+    function  addingtasks() {
+        var input = document.getElementById("taskInput").value;
+        if (input.trim() !== "") {
+            var  Item = document.createElement("li");
+             Item.textContent = input;
+             Item.addEventListener("click", function() {
+                 taskdone(this);
+            });
+            document.getElementById("taskList").appendChild( Item);
+            document.getElementById("taskInput").value = "";
+        } else {
+            alert("Please enter a task!");
+        }
+    }
+
+    function  taskdone(item) {
+        item.classList.toggle("completed");
+	//checks off the task upon toggling(completion)
+    }
+</script>
+</body>
+</html>
